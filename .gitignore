@@ -1,0 +1,30 @@
+# System
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime temp
+tmp/
+*.tmp
+
+# Build/cache
+node_modules/
+dist/
+coverage/
+.cache/
+
+# Env
+.env
+.env.*
+!.env.example
