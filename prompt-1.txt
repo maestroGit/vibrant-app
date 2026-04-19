@@ -1,0 +1,161 @@
+Objetivo:
+Crear una app web simple (HTML + JavaScript nativo) capaz de:
+- Capturar alpha, beta, gamma del DeviceOrientationEvent
+- Capturar aceleración y rotationRate del DeviceMotionEvent
+- Registrar el movimiento del dispositivo en la mano del usuario
+- Filtrar la señal para obtener el temblor real
+- Calcular frecuencia dominante (FFT), amplitud y dominancia por eje
+- Visualizar gráficas y comparar sesiones entre días/usuarios
+
+Arquitectura general:
+1. index.html
+   - Contenedor para botones: iniciar, detener, exportar
+   - Contenedor para gráficas (canvas)
+   - Indicadores en tiempo real (opcional)
+
+2. app.js
+   - Módulo de captura de sensores
+   - Módulo de almacenamiento temporal (array de muestras)
+   - Módulo de filtrado (paso alto + paso bajo)
+   - Módulo de análisis (RMS, FFT, frecuencia dominante)
+   - Módulo de visualización (Chart.js o Canvas nativo)
+   - Módulo de exportación (CSV/JSON)
+   - Módulo de comparación entre sesiones
+
+3. storage/
+   - Guardar sesiones en IndexedDB o localStorage
+   - Cada sesión contiene:
+     {
+       timestampInicio,
+       timestampFin,
+       muestras: [
+         {t, alpha, beta, gamma, accX, accY, accZ, rotA, rotB, rotG}
+       ],
+       analisis: {
+         frecuenciaDominante,
+         amplitudRMS,
+         ejeDominante,
+         energiaTotal
+       }
+     }
+
+Pasos técnicos a implementar:
+
+1. Solicitar permisos (iOS requiere permiso explícito)
+   - DeviceOrientationEvent.requestPermission()
+   - DeviceMotionEvent.requestPermission()
+
+2. Capturar datos en tiempo real
+   - window.addEventListener("deviceorientation", handler)
+   - window.addEventListener("devicemotion", handler)
+   - Guardar cada muestra con performance.now()
+
+3. Normalizar y filtrar la señal
+   - Aplicar filtro paso alto para eliminar movimientos lentos
+   - Aplicar filtro paso bajo para eliminar ruido
+   - Usar ventanas de 2–5 segundos para análisis
+
+4. Registrar la sesión
+   - Guardar array de muestras en memoria
+   - Al finalizar, almacenar en IndexedDB o exportar CSV
+
+5. Analizar la señal
+   - Calcular RMS por eje
+   - Calcular FFT (usar librería FFT.js o implementar Cooley–Tukey)
+   - Extraer frecuencia dominante (pico del espectro)
+   - Determinar eje dominante (mayor energía)
+   - Calcular energía total de la señal
+
+6. Visualizar resultados
+   - Gráfica temporal de cada eje (señal cruda)
+   - Gráfica temporal filtrada
+   - Espectro de frecuencias (FFT)
+   - Comparación entre sesiones (superposición o tabla)
+
+7. Comparar sesiones
+   - Comparar frecuencia dominante entre días
+   - Comparar amplitud RMS
+   - Comparar energía total
+   - Detectar cambios significativos (aumento, disminución, estabilidad)
+
+8. Exportar datos
+   8. Salida de datos (visual + exportable)
+
+El sistema debe generar una salida clara, visual y comprensible para el usuario final. 
+La salida debe incluir:
+
+A) Panel visual en pantalla
+   - Gráficas temporales de cada eje (alpha, beta, gamma, accX, accY, accZ, rotA, rotB, rotG)
+   - Gráfica de señal filtrada (paso alto + paso bajo)
+   - Espectro de frecuencias (FFT) con frecuencia dominante marcada
+   - Indicadores numéricos:
+       • Frecuencia dominante (Hz)
+       • Amplitud RMS por eje
+       • Eje dominante del temblor
+       • Energía total de la señal
+       • Variabilidad temporal
+   - Comparación visual entre sesiones:
+       • Superposición de gráficas
+       • Tabla comparativa de métricas
+       • Tendencias (flechas ↑ ↓ = )
+
+B) Exportación visual en PDF
+   El sistema debe permitir generar un PDF que incluya:
+   - Portada con fecha, usuario y duración de la sesión
+   - Resumen ejecutivo con:
+       • Frecuencia dominante
+       • Amplitud RMS
+       • Eje dominante
+       • Energía total
+   - Gráficas incrustadas:
+       • Señal cruda por eje
+       • Señal filtrada
+       • FFT con pico marcado
+       • Comparación con sesiones anteriores
+   - Interpretación automática:
+       • Cambios respecto a sesiones previas
+       • Aumento/disminución del temblor
+       • Dominancia de ejes
+       • Observaciones relevantes
+   - Anexos:
+       • Datos brutos (opcional)
+       • Tabla de muestras (opcional)
+
+C) Exportación de datos para análisis externo
+   - CSV con todas las muestras
+   - JSON con:
+       • Muestras
+       • Parámetros de filtrado
+       • Resultados del análisis
+       • Metadatos de la sesión
+
+D) Opcional: panel de historial
+   - Lista de sesiones anteriores
+   - Mini-gráficas tipo “sparklines”
+   - Tendencias longitudinales
+   - Comparación automática entre días/usuarios
+
+Objetivo final:
+Ofrecer al usuario una salida clara, visual y exportable que permita:
+- Entender su movimiento/temblor
+- Compararlo con sesiones anteriores
+- Detectar patrones o cambios
+- Integrarlo fácilmente en informes, estudios o seguimiento personal
+
+9. Opcional: convertir en PWA
+   - manifest.json
+   - service worker
+   - instalación en móvil
+
+Notas importantes:
+- alpha, beta, gamma describen orientación (rotación)
+- acceleration y rotationRate son mejores para medir temblor fino
+- El temblor fisiológico suele estar entre 4–12 Hz
+- rotationRate.beta suele ser el eje más sensible en mano
+
+Resultado esperado:
+Una app web que:
+- Mide el movimiento del móvil en la mano del usuario
+- Extrae patrones de temblor
+- Permite comparar sesiones entre días o usuarios
+- Genera gráficas y análisis de frecuencia

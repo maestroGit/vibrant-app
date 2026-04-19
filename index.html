@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Analizador de Temblor</title>
+</head>
+<body>
+    <main class="app-shell">
+        <header class="hero">
+            <h1>Analizador de Temblor en Mano</h1>
+            <p>Captura sensores del movil, filtra la senal y compara sesiones.</p>
+        </header>
+
+        <section class="controls card">
+            <div class="controls-row">
+                <button id="btnEnable">Activar sensores</button>
+                <button id="btnStart" disabled>Iniciar sesion</button>
+                <button id="btnStop" disabled>Detener sesion</button>
+            </div>
+            <div class="controls-row">
+                <button id="btnExportCsv" disabled>Exportar CSV</button>
+                <button id="btnExportJson" disabled>Exportar JSON</button>
+                <button id="btnExportPdf" disabled>Exportar PDF</button>
+            </div>
+            <div id="status" class="status">Estado: pendiente de permisos.</div>
+        </section>
+
+        <section class="metrics-grid card">
+            <article class="metric">
+                <h2>Frecuencia dominante</h2>
+                <p id="metricFreq">- Hz</p>
+            </article>
+            <article class="metric">
+                <h2>RMS por eje (rotacion)</h2>
+                <p id="metricRms">A: - | B: - | G: -</p>
+            </article>
+            <article class="metric">
+                <h2>Eje dominante</h2>
+                <p id="metricAxis">-</p>
+            </article>
+            <article class="metric">
+                <h2>Energia total</h2>
+                <p id="metricEnergy">-</p>
+            </article>
+            <article class="metric">
+                <h2>Variabilidad temporal</h2>
+                <p id="metricVar">-</p>
+            </article>
+            <article class="metric">
+                <h2>Duracion</h2>
+                <p id="metricDuration">0.0 s</p>
+            </article>
+        </section>
+
+        <section class="charts-grid">
+            <article class="card chart-card">
+                <h3>Senal cruda (orientation + motion)</h3>
+                <canvas id="rawChart"></canvas>
+            </article>
+            <article class="card chart-card">
+                <h3>Senal filtrada (rotationRate)</h3>
+                <canvas id="filteredChart"></canvas>
+            </article>
+            <article class="card chart-card">
+                <h3>Espectro FFT</h3>
+                <canvas id="fftChart"></canvas>
+            </article>
+            <article class="card chart-card">
+                <h3>Comparacion de sesiones</h3>
+                <canvas id="compareChart"></canvas>
+            </article>
+        </section>
+
+        <section class="card">
+            <h3>Historial de sesiones</h3>
+            <div id="history"></div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
+

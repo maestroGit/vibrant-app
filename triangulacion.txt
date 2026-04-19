@@ -1,0 +1,34 @@
+Triangulation and Trilateration
+-------------------------------
+Parallax
+Height measurement
+giroscopios en movil phone para medir inclinación desde el punto que no varia ( giroscopio)
+Magnetismo permite determinar el punto 0 o origen fijo para medir los ángulos del giroscopio
+Mobile phone signal => lower o hight signal is depends distance from antenna
+Trilateration : two o more antenna, we can figaure out are for location
+Global positioning system (GPS) 
+LAMAD: Location-aware mobile application development
+Satellite GPS, Galileo, GLONASS, Iridium, ISS, Meteo sattellites 
+
+
+https://www.youtube.com/watch?v=TQkMRZa2blU
+In this lecture we learn about triangulation and trilateration and how global positioning works. People often confuse triangulation and trilateration and if you plan to build location-based apps it's good to know the difference! In short, triangulation is about angles and trilateration is about distances. GPS positioning uses trilateration and not triangulation as you often see portrayed incorrectly in SciFi movies :-) 
+
+In this location aware mobile application development (LAMAD) course we study the background of location-aware applications including positioning and mapping. We then focus on app development using web technologies (HTML and JavaScript). Necessary server-side solutions are covered and provided via APIs. Case studies of popular apps are covered during the last part of the lecture.
+
+
+Location-aware mobile applications development course:
+http://cs.uef.fi/~radum/lamad
+
+Geolocation and Orientation
+---------------------------
+https://www.youtube.com/watch?v=TOmxK4wajfM&list=PLB0Tybl0UNfY1wfdwb8tlLBEz6H41P3aG&index=2
+
+Projections and Distances on the surface of the Earth
+------------------------------------------------------
+https://www.youtube.com/watch?v=uDWUVRXPJos&list=PLB0Tybl0UNfY1wfdwb8tlLBEz6H41P3aG&index=3
+We talk about projections from the spherical earth to a flat map and how distances are measured on the surface of the earth.
+
+Projections: Azimuth - Conical - Cillindric 
+Equator - 23º N  - Prime Meridian -  Radius Earth = 6371 km 
+WGS => World Geodesic System 
