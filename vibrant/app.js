@@ -540,7 +540,8 @@ function setupCharts() {
 function chartOptions(xLabel, yLabel) {
   return {
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
+    aspectRatio: 1.7,
     animation: false,
     scales: {
       x: { title: { display: true, text: xLabel } },
